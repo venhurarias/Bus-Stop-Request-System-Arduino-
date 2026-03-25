@@ -1,148 +1,195 @@
-# Bus Stop Request System (Arduino)
+# Bus Stop Request System (Arduino - Multi Station)
 
-This project is a simple Arduino-based system designed for **commuters and bus drivers**. It allows passengers to signal when they want to stop, helping drivers respond quickly and safely.
+This project is an Arduino-based **bus stop request system** designed for both **commuters and bus drivers**. It allows passengers to request stops and select stations, while the driver is notified through LEDs and indicators.
 
 ---
 
 ## Project Overview
 
-The system provides a **button-based stop request mechanism**:
+The system supports:
 
-- Passenger presses a button  
-- System alerts the driver  
-- Driver prepares to stop at the next location  
+- Passenger stop request  
+- Station selection (1–4)  
+- Driver acknowledgment  
+- Visual alert system using LEDs  
+- Blinking alert for stop request  
 
 This improves:
-- passenger convenience  
-- driver awareness  
-- transport efficiency  
+- communication between passenger and driver  
+- safety and awareness  
+- efficiency in public transport  
 
 ---
 
 ## Features
 
-### 🛑 Stop Request Button
-- Passenger presses button to request stop  
-- Simple and reliable  
+### 🛑 Passenger Stop Request
+- Passenger presses STOP button  
+- System triggers blinking alert  
 
 ---
 
-### 🔔 Driver Alert System
-- Activates buzzer when button is pressed  
-- Provides immediate audio alert  
+### 📍 Station Selection (1–4)
+- Passenger selects destination station  
+- LED indicator turns ON  
 
 ---
 
-### 💡 Visual Indicator
-- LED lights up when stop is requested  
-- Clearly visible to driver  
+### 👨‍✈️ Driver Control Panel
+- Driver sees which station is selected  
+- Driver can reset system or confirm stop  
 
 ---
 
-### 🔄 Reset Mechanism
-- System resets after stop  
-- Ready for next passenger  
+### 💡 LED Indicators
+
+| LED | Purpose |
+|-----|--------|
+| LED_DRIVER | Driver alert |
+| LED_STOP   | Stop blinking indicator |
+| LED_1–4    | Station indicators |
+
+---
+
+### 🔁 Blinking Alert System
+- STOP LED blinks 10 times  
+- Driver LED also blinks when passenger pressed stop  
 
 ---
 
 ## System Workflow
 
-### 1. Idle State
-- System waits for passenger input  
-- LED and buzzer are OFF  
+### 1. Passenger Action
+- Press STOP → triggers alert  
+- Select station → LED turns ON  
 
 ---
 
-### 2. Stop Request
-- Passenger presses button  
-- System:
-  - turns ON buzzer  
-  - turns ON LED  
+### 2. Driver Notification
+- STOP LED blinks  
+- Driver LED blinks  
 
 ---
 
 ### 3. Driver Response
-- Driver sees LED and hears buzzer  
-- Prepares to stop  
+- Driver presses station button → turns OFF station  
+- Or presses STOP → resets system  
 
 ---
 
 ### 4. Reset
-- System turns OFF after stop  
-- Returns to idle state  
+- All LEDs turn OFF  
+- System returns to idle  
 
 ---
 
 ## Pin Configuration
 
-| Component | Arduino Pin |
-|----------|------------|
-| Button   | 3          |
-| Buzzer   | 8          |
-| LED      | 13         |
+### 🔌 LEDs
+
+| Component     | Arduino Pin |
+|--------------|------------|
+| Driver LED   | 12         |
+| Stop LED     | 13         |
+| Station 1 LED| 11         |
+| Station 2 LED| 10         |
+| Station 3 LED| 9          |
+| Station 4 LED| 8          |
+
+---
+
+### 🔘 Passenger Buttons
+
+| Component           | Arduino Pin |
+|--------------------|------------|
+| Stop Button        | 3          |
+| Station 1 Button   | 4          |
+| Station 2 Button   | 5          |
+| Station 3 Button   | 6          |
+| Station 4 Button   | 7          |
+
+---
+
+### 👨‍✈️ Driver Buttons
+
+| Component           | Arduino Pin |
+|--------------------|------------|
+| Driver Stop        | A4         |
+| Driver Station 1   | A3         |
+| Driver Station 2   | A2         |
+| Driver Station 3   | A1         |
+| Driver Station 4   | A0         |
 
 ---
 
 ## Wiring Connections
 
-### 🔘 Button (Stop Request)
-- One side → Pin **3**  
-- Other side → **GND**  
-- Uses `INPUT_PULLUP` (no resistor needed)
+### 🔘 Buttons (ALL Buttons)
+
+All buttons use: INPUT_PULLUP
+
+Connection:
+- One side → Arduino pin  
+- Other side → GND  
 
 ---
 
-### 🔔 Buzzer
-- Positive (+) → Pin **8**  
-- Negative (–) → **GND**
+### 💡 LEDs
 
----
-
-### 💡 LED Indicator
-- Positive (+) → Pin **13**  
-- Negative (–) → **220Ω resistor → GND**
+Each LED:
+- Positive → Arduino pin  
+- Negative → 220Ω resistor → GND  
 
 ---
 
 ## Hardware Components
 
-- Arduino (Uno / Nano)  
-- Push Button  
-- Buzzer  
-- LED  
-- 220Ω Resistor  
-- Jumper Wires  
-- Power Supply  
+- Arduino Uno / Mega  
+- 10 Push Buttons (Passenger + Driver)  
+- 6 LEDs  
+- Resistors (220Ω)  
+- Jumper wires  
+- Power supply  
+
+---
+
+## Code Reference
+
+📄 Source Code:  
+:contentReference[oaicite:1]{index=1}  
 
 ---
 
 ## Notes
 
-- Uses internal pull-up resistor for button  
-- Use active buzzer for easier setup  
-- Ensure secure wiring (for moving vehicle use)  
+- Uses **Chrono library** for non-blocking timing  
+- Buttons are active LOW (INPUT_PULLUP)  
+- Blinking is controlled every 300ms  
+- Station states are tracked using boolean variables  
 
 ---
 
 ## Limitations
 
+- No sound/buzzer (LED only alert)  
 - No wireless communication  
-- No passenger count system  
-- Manual reset (depending on code logic)  
+- Limited to 4 stations  
+- No display interface  
 
 ---
 
 ## Summary
 
-This project demonstrates a simple **bus stop request system** that helps:
+This project demonstrates a **multi-station bus stop request system** that combines:
 
-- commuters easily signal stops  
-- drivers respond quickly  
-- improve public transport experience  
+- passenger input system  
+- driver control panel  
+- LED-based notification system  
+- timed alert mechanism  
 
 It is suitable for:
 
 - buses  
 - jeepneys  
 - shuttle services  
-- transportation prototypes  
+- transport automation prototypes  
