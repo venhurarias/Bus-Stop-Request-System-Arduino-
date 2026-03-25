@@ -185,11 +185,14 @@ This project demonstrates a **multi-station bus stop request system** that combi
 - passenger input system  
 - driver control panel  
 - LED-based notification system  
-- timed alert mechanism  
+- timed alert mechanism
 
 It is suitable for:
 
 - buses  
 - jeepneys  
 - shuttle services  
-- transport automation prototypes  
+- transport automation prototypes
+
+## Wiring Diagram
+<img src="images/commuter_button_page-0001.jpg" height="200"/>
